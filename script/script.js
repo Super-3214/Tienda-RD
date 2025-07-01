@@ -8,7 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     const header = document.querySelector('header');
     
-    const obtenerProductos = () => JSON.parse(localStorage.getItem('productos')) || [];
+    const obtenerProductos = async () => {
+        try {
+            return await jsonBinService.obtenerProductos();
+        } catch (error) {
+            console.error('Error al obtener productos:', error);
+            return JSON.parse(localStorage.getItem('productos')) || [];
+        }
+    };
 
     const mostrarProductos = (productos, container) => {
         if (!container) return; 
@@ -41,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     todosLosFiltros.forEach(button => {
-        button.addEventListener('click', (e) => {
+        button.addEventListener('click', async (e) => {
             const botonClicado = e.target;
             const categoria = botonClicado.dataset.categoria;
             const subcategoria = botonClicado.dataset.subcategoria;
@@ -53,30 +60,49 @@ document.addEventListener('DOMContentLoaded', () => {
             grupoBotones.forEach(btn => btn.classList.remove('active'));
             botonClicado.classList.add('active');
 
-            const todosLosProductos = obtenerProductos();
-            const productosDeCategoria = todosLosProductos.filter(p => p.categoria === categoria);
-            const productosFiltrados = subcategoria === 'Todo'
-                ? productosDeCategoria
-                : productosDeCategoria.filter(p => p.subcategoria === subcategoria);
-            
-            if (gridContainer) {
-                mostrarProductos(productosFiltrados, gridContainer);
+            try {
+                const todosLosProductos = await obtenerProductos();
+                const productosDeCategoria = todosLosProductos.filter(p => p.categoria === categoria);
+                const productosFiltrados = subcategoria === 'Todo'
+                    ? productosDeCategoria
+                    : productosDeCategoria.filter(p => p.subcategoria === subcategoria);
+                
+                if (gridContainer) {
+                    mostrarProductos(productosFiltrados, gridContainer);
+                }
+            } catch (error) {
+                console.error('Error al filtrar productos:', error);
+                if (gridContainer) {
+                    gridContainer.innerHTML = '<p class="mensaje-vacio">Error al cargar productos</p>';
+                }
             }
         });
     });
 
-    const cargarProductosIniciales = () => {
-        const todosLosProductos = obtenerProductos();
-        const categorias = ['Ropa', 'Calzado', 'Interiores', 'Accesorios', 'Hogar'];
+    const cargarProductosIniciales = async () => {
+        try {
+            const todosLosProductos = await obtenerProductos();
+            const categorias = ['Ropa', 'Calzado', 'Interiores', 'Accesorios', 'Hogar'];
 
-        categorias.forEach(categoria => {
-            const gridContainerId = `grid-${categoria.toLowerCase()}`;
-            const gridContainer = document.getElementById(gridContainerId);
-            if (gridContainer) {
-                const productosDeCategoria = todosLosProductos.filter(p => p.categoria === categoria);
-                mostrarProductos(productosDeCategoria, gridContainer);
-            }
-        });
+            categorias.forEach(categoria => {
+                const gridContainerId = `grid-${categoria.toLowerCase()}`;
+                const gridContainer = document.getElementById(gridContainerId);
+                if (gridContainer) {
+                    const productosDeCategoria = todosLosProductos.filter(p => p.categoria === categoria);
+                    mostrarProductos(productosDeCategoria, gridContainer);
+                }
+            });
+        } catch (error) {
+            console.error('Error al cargar productos iniciales:', error);
+            const categorias = ['Ropa', 'Calzado', 'Interiores', 'Accesorios', 'Hogar'];
+            categorias.forEach(categoria => {
+                const gridContainerId = `grid-${categoria.toLowerCase()}`;
+                const gridContainer = document.getElementById(gridContainerId);
+                if (gridContainer) {
+                    gridContainer.innerHTML = '<p class="mensaje-vacio">Error al cargar productos</p>';
+                }
+            });
+        }
     };
 
     // --- LÓGICA DE SCROLL ---
@@ -129,5 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EJECUCIÓN INICIAL (YA SIN LA FUNCIÓN PROBLEMÁTICA) ---
     setupObserver();
     // anadirClaseRevealInicial(); // <-- La llamada también se elimina
-    cargarProductosIniciales();
+    cargarProductosIniciales().catch(error => {
+        console.error('Error al cargar productos iniciales:', error);
+    });
 });

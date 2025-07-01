@@ -1,121 +1,186 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda RD - Moda y Hogar</title>
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
     <!-- Hoja de estilos -->
-    <link rel="stylesheet" href="/style/style.css">
-    <link rel="icon" href="/favico.png" type="image/png">
-</head>
-<body>
-
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="icon" href="favico.png" type="image/png" />
+  </head>
+  <body>
     <header>
-        <div class="header-container">
-            <a href="#" class="logo">
-                <svg class="logo-tilde" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M 3 12 C 6 6, 18 6, 21 12"/>
-                </svg>
-                <span class="logo-text">Tienda RD</span>
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#ropa">Ropa</a></li>
-                    <li><a href="#calzado">Calzado</a></li>
-                    <li><a href="#interiores">Interiores</a></li>
-                    <li><a href="#accesorios">Accesorios</a></li>
-                    <li><a href="#hogar">Hogar</a></li>
-                </ul>
-            </nav>
-            <a href="login.html" class="admin-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a5.5 5.5 0 0 1 5.5 5.5c0 1.571-.67 3.003-1.755 4.012C17.43 13.92 19.635 16.438 20 19.5h-2c-.347-2.675-2.27-4.73-4.42-5.594A5.51 5.51 0 0 1 12 13.5a5.5 5.5 0 0 1-1.58-10.988C11.03 2.83 11.5 2.5 12 2.5zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg>
-            </a>
-        </div>
+      <div class="header-container">
+        <a href="#" class="logo">
+          <svg class="logo-tilde" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M 3 12 C 6 6, 18 6, 21 12" />
+          </svg>
+          <span class="logo-text">Tienda RD</span>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#ropa">Ropa</a></li>
+            <li><a href="#calzado">Calzado</a></li>
+            <li><a href="#interiores">Interiores</a></li>
+            <li><a href="#accesorios">Accesorios</a></li>
+            <li><a href="#hogar">Hogar</a></li>
+          </ul>
+        </nav>
+        <a href="login.html" class="admin-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2.5a5.5 5.5 0 0 1 5.5 5.5c0 1.571-.67 3.003-1.755 4.012C17.43 13.92 19.635 16.438 20 19.5h-2c-.347-2.675-2.27-4.73-4.42-5.594A5.51 5.51 0 0 1 12 13.5a5.5 5.5 0 0 1-1.58-10.988C11.03 2.83 11.5 2.5 12 2.5zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"
+            />
+          </svg>
+        </a>
+      </div>
     </header>
 
     <main>
-        <!-- SECCIÓN DE ROPA -->
-        <section id="ropa" class="category-section">
-            <h2>Ropa</h2>
-            <div class="filtros">
-                <button class="active" data-categoria="Ropa" data-subcategoria="Todo">Todos</button>
-                <button data-categoria="Ropa" data-subcategoria="Dama">Damas</button>
-                <button data-categoria="Ropa" data-subcategoria="Caballero">Caballeros</button>
-                <button data-categoria="Ropa" data-subcategoria="Niña">Niñas</button>
-                <button data-categoria="Ropa" data-subcategoria="Niño">Niños</button>
-            </div>
-            <div class="product-grid" id="grid-ropa">
-                <!-- El mensaje de "No hay productos" aparecerá aquí -->
-            </div>
-        </section>
+      <!-- SECCIÓN DE ROPA -->
+      <section id="ropa" class="category-section">
+        <h2>Ropa</h2>
+        <div class="filtros">
+          <button class="active" data-categoria="Ropa" data-subcategoria="Todo">
+            Todos
+          </button>
+          <button data-categoria="Ropa" data-subcategoria="Dama">Damas</button>
+          <button data-categoria="Ropa" data-subcategoria="Caballero">
+            Caballeros
+          </button>
+          <button data-categoria="Ropa" data-subcategoria="Niña">Niñas</button>
+          <button data-categoria="Ropa" data-subcategoria="Niño">Niños</button>
+        </div>
+        <div class="product-grid" id="grid-ropa">
+          <!-- El mensaje de "No hay productos" aparecerá aquí -->
+        </div>
+      </section>
 
-        <!-- SECCIÓN DE CALZADO -->
-        <section id="calzado" class="category-section">
-            <h2>Calzado</h2>
-            <div class="filtros">
-                <button class="active" data-categoria="Calzado" data-subcategoria="Todo">Todos</button>
-                <button data-categoria="Calzado" data-subcategoria="Dama">Damas</button>
-                <button data-categoria="Calzado" data-subcategoria="Caballero">Caballeros</button>
-                <button data-categoria="Calzado" data-subcategoria="Niña">Niñas</button>
-                <button data-categoria="Calzado" data-subcategoria="Niño">Niños</button>
-            </div>
-            <div class="product-grid" id="grid-calzado">
-                <!-- El mensaje de "No hay productos" aparecerá aquí -->
-            </div>
-        </section>
+      <!-- SECCIÓN DE CALZADO -->
+      <section id="calzado" class="category-section">
+        <h2>Calzado</h2>
+        <div class="filtros">
+          <button
+            class="active"
+            data-categoria="Calzado"
+            data-subcategoria="Todo"
+          >
+            Todos
+          </button>
+          <button data-categoria="Calzado" data-subcategoria="Dama">
+            Damas
+          </button>
+          <button data-categoria="Calzado" data-subcategoria="Caballero">
+            Caballeros
+          </button>
+          <button data-categoria="Calzado" data-subcategoria="Niña">
+            Niñas
+          </button>
+          <button data-categoria="Calzado" data-subcategoria="Niño">
+            Niños
+          </button>
+        </div>
+        <div class="product-grid" id="grid-calzado">
+          <!-- El mensaje de "No hay productos" aparecerá aquí -->
+        </div>
+      </section>
 
-        <!-- SECCIÓN DE INTERIORES -->
-        <section id="interiores" class="category-section">
-            <h2>Interiores</h2>
-            <div class="filtros">
-                <button class="active" data-categoria="Interiores" data-subcategoria="Todo">Todos</button>
-                <button data-categoria="Interiores" data-subcategoria="Dama">Damas</button>
-                <button data-categoria="Interiores" data-subcategoria="Caballero">Caballeros</button>
-                <button data-categoria="Interiores" data-subcategoria="Niña">Niñas</button>
-                <button data-categoria="Interiores" data-subcategoria="Niño">Niños</button>
-            </div>
-            <div class="product-grid" id="grid-interiores">
-                <!-- El mensaje de "No hay productos" aparecerá aquí -->
-            </div>
-        </section>
-        
-        <!-- SECCIÓN DE ACCESORIOS -->
-        <section id="accesorios" class="category-section">
-            <h2>Accesorios</h2>
-            <div class="filtros">
-                <button class="active" data-categoria="Accesorios" data-subcategoria="Todo">Todos</button>
-                <button data-categoria="Accesorios" data-subcategoria="Dama">Damas</button>
-                <button data-categoria="Accesorios" data-subcategoria="Caballero">Caballeros</button>
-                <button data-categoria="Accesorios" data-subcategoria="Niña">Niñas</button>
-                <button data-categoria="Accesorios" data-subcategoria="Niño">Niños</button>
-            </div>
-            <div class="product-grid" id="grid-accesorios">
-                <!-- El mensaje de "No hay productos" aparecerá aquí -->
-            </div>
-        </section>
+      <!-- SECCIÓN DE INTERIORES -->
+      <section id="interiores" class="category-section">
+        <h2>Interiores</h2>
+        <div class="filtros">
+          <button
+            class="active"
+            data-categoria="Interiores"
+            data-subcategoria="Todo"
+          >
+            Todos
+          </button>
+          <button data-categoria="Interiores" data-subcategoria="Dama">
+            Damas
+          </button>
+          <button data-categoria="Interiores" data-subcategoria="Caballero">
+            Caballeros
+          </button>
+          <button data-categoria="Interiores" data-subcategoria="Niña">
+            Niñas
+          </button>
+          <button data-categoria="Interiores" data-subcategoria="Niño">
+            Niños
+          </button>
+        </div>
+        <div class="product-grid" id="grid-interiores">
+          <!-- El mensaje de "No hay productos" aparecerá aquí -->
+        </div>
+      </section>
 
-        <!-- SECCIÓN DE HOGAR -->
-        <section id="hogar" class="category-section">
-            <h2>Para el Hogar</h2>
-            <div class="product-grid" id="grid-hogar">
-                <!-- El mensaje de "No hay productos" aparecerá aquí -->
-            </div>
-        </section>
+      <!-- SECCIÓN DE ACCESORIOS -->
+      <section id="accesorios" class="category-section">
+        <h2>Accesorios</h2>
+        <div class="filtros">
+          <button
+            class="active"
+            data-categoria="Accesorios"
+            data-subcategoria="Todo"
+          >
+            Todos
+          </button>
+          <button data-categoria="Accesorios" data-subcategoria="Dama">
+            Damas
+          </button>
+          <button data-categoria="Accesorios" data-subcategoria="Caballero">
+            Caballeros
+          </button>
+          <button data-categoria="Accesorios" data-subcategoria="Niña">
+            Niñas
+          </button>
+          <button data-categoria="Accesorios" data-subcategoria="Niño">
+            Niños
+          </button>
+        </div>
+        <div class="product-grid" id="grid-accesorios">
+          <!-- El mensaje de "No hay productos" aparecerá aquí -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN DE HOGAR -->
+      <section id="hogar" class="category-section">
+        <h2>Para el Hogar</h2>
+        <div class="product-grid" id="grid-hogar">
+          <!-- El mensaje de "No hay productos" aparecerá aquí -->
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>© 2025 Mi Tienda RD. Todos los derechos reservados.</p>
+      <p>© 2025 Mi Tienda RD. Todos los derechos reservados.</p>
     </footer>
 
     <!-- Botón para subir (Scroll to Top) -->
     <a href="#" id="scrollTopBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.9999 10.8284L7.05016 15.7782L5.63595 14.364L11.9999 8L18.3639 14.364L16.9497 15.7782L11.9999 10.8284Z"></path></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          d="M11.9999 10.8284L7.05016 15.7782L5.63595 14.364L11.9999 8L18.3639 14.364L16.9497 15.7782L11.9999 10.8284Z"
+        ></path>
+      </svg>
     </a>
 
-    <script src="/script/script.js"></script>
-</body>
+    <script src="script/jsonbin-utils.js"></script>
+    <script src="script/script.js"></script>
+  </body>
 </html>

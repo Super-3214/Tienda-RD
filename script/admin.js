@@ -46,8 +46,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const grupoSubcategoria = document.getElementById('grupo-subcategoria');
         const fileNameSpan = document.getElementById('file-name');
 
-        const obtenerProductos = () => JSON.parse(localStorage.getItem('productos')) || [];
-        const guardarProductos = (productos) => localStorage.setItem('productos', JSON.stringify(productos));
+        const obtenerProductos = async () => {
+            try {
+                return await jsonBinService.obtenerProductos();
+            } catch (error) {
+                console.error('Error al obtener productos:', error);
+                return JSON.parse(localStorage.getItem('productos')) || [];
+            }
+        };
+        
+        const guardarProductos = async (productos) => {
+            try {
+                await jsonBinService.guardarProductos(productos);
+                console.log('Productos guardados exitosamente');
+            } catch (error) {
+                console.error('Error al guardar productos:', error);
+                // Fallback a localStorage
+                localStorage.setItem('productos', JSON.stringify(productos));
+            }
+        };
         const leerArchivoComoDataURL = (archivo) => new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = () => resolve(reader.result);
@@ -55,15 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.readAsDataURL(archivo);
         });
 
-        const renderizarProductosAdmin = () => {
-            const productos = obtenerProductos();
-            listaProductosAdmin.innerHTML = '';
-            productos.forEach(producto => {
-                const item = document.createElement('div');
-                item.classList.add('admin-product-item');
-                item.innerHTML = `<span>${producto.nombre} ($${producto.precio})</span><button class="btn-delete" data-id="${producto.id}">Eliminar</button>`;
-                listaProductosAdmin.appendChild(item);
-            });
+        const renderizarProductosAdmin = async () => {
+            try {
+                const productos = await obtenerProductos();
+                listaProductosAdmin.innerHTML = '';
+                productos.forEach(producto => {
+                    const item = document.createElement('div');
+                    item.classList.add('admin-product-item');
+                    item.innerHTML = `<span>${producto.nombre} ($${producto.precio})</span><button class="btn-delete" data-id="${producto.id}">Eliminar</button>`;
+                    listaProductosAdmin.appendChild(item);
+                });
+            } catch (error) {
+                console.error('Error al renderizar productos:', error);
+                listaProductosAdmin.innerHTML = '<p>Error al cargar productos</p>';
+            }
         };
 
         if (formAgregarProducto) {
@@ -73,37 +95,55 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!file) return alert('Por favor, selecciona una imagen.');
                 
                 try {
-                    const imagenDataUrl = await leerArchivoComoDataURL(file);
-                    const productos = obtenerProductos();
+                    // Comprimir imagen antes de convertir a DataURL
+                    console.log('Comprimiendo imagen...');
+                    const imagenComprimida = await jsonBinService.comprimirImagen(file, 600, 400, 0.7);
+                    
+                    const productos = await obtenerProductos();
                     productos.push({
                         id: Date.now(),
                         nombre: document.getElementById('nombre').value,
                         precio: document.getElementById('precio').value,
-                        imagen: imagenDataUrl,
+                        imagen: imagenComprimida,
                         categoria: selectCategoria.value,
                         subcategoria: document.getElementById('subcategoria').value,
                     });
-                    guardarProductos(productos);
+                    
+                    await guardarProductos(productos);
                     formAgregarProducto.reset();
                     if (fileNameSpan) fileNameSpan.textContent = 'Ningún archivo seleccionado';
-                    renderizarProductosAdmin();
+                    await renderizarProductosAdmin();
                     if (selectCategoria.value === 'Hogar' && grupoSubcategoria) {
                         grupoSubcategoria.style.display = 'none';
                     } else if (grupoSubcategoria) {
                         grupoSubcategoria.style.display = 'block';
                     }
                 } catch (error) {
-                    alert("Hubo un problema al cargar la imagen.");
+                    console.error('Error completo:', error);
+                    if (error.message.includes('413') || error.message.includes('100KB')) {
+                        alert("La imagen es demasiado grande. Intenta con una imagen más pequeña o de menor calidad.");
+                    } else if (error.message.includes('comprim')) {
+                        alert("Error al procesar la imagen. Asegúrate de que sea un archivo de imagen válido.");
+                    } else {
+                        alert("Hubo un problema al agregar el producto. Verifique la configuración de JSONBin.io.");
+                    }
                 }
             });
         }
         
         if (listaProductosAdmin) {
-            listaProductosAdmin.addEventListener('click', (e) => {
+            listaProductosAdmin.addEventListener('click', async (e) => {
                 if (e.target.classList.contains('btn-delete')) {
                     const id = parseInt(e.target.dataset.id);
-                    guardarProductos(obtenerProductos().filter(p => p.id !== id));
-                    renderizarProductosAdmin();
+                    try {
+                        const productos = await obtenerProductos();
+                        const productosActualizados = productos.filter(p => p.id !== id);
+                        await guardarProductos(productosActualizados);
+                        await renderizarProductosAdmin();
+                    } catch (error) {
+                        console.error('Error al eliminar producto:', error);
+                        alert('Error al eliminar el producto. Intente nuevamente.');
+                    }
                 }
             });
         }
@@ -129,7 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        renderizarProductosAdmin();
+        // Cargar productos iniciales
+        renderizarProductosAdmin().catch(error => {
+            console.error('Error al cargar productos iniciales:', error);
+        });
+        
         if (grupoSubcategoria) {
             grupoSubcategoria.style.display = selectCategoria.value === 'Hogar' ? 'none' : 'block';
         }
