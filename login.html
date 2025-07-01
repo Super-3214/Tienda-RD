@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Administrador - Mi Tienda</title>
+    <!-- Mismos enlaces que la tienda principal para coherencia total -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Enlace al CSS unificado (Asegúrate de que la ruta sea correcta) -->
+    <link rel="stylesheet" href="style/login-style.css">
+    <link rel="icon" href="/Admin.png" type="image/png">
+</head>
+<body>
+
+    <!-- El mismo header de la tienda para una apariencia unificada -->
+    <header>
+        <div class="header-container">
+            <!-- CAMBIO: Se reemplazó <a> por <span> para que no sea un enlace -->
+            <span class="logo">Administrador</span>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Volver a la Tienda</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor principal que centrará el formulario -->
+    <main class="login-page-main">
+        <div class="login-form-container reveal">
+            <form id="login-form" class="login-form">
+                <h2>Acceso Administrador</h2>
+                
+                <div class="form-group">
+                    <input type="text" id="username" class="form-input" placeholder=" " required>
+                    <label for="username" class="form-label">Usuario</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" id="password" class="form-input" placeholder=" " required>
+                    <label for="password" class="form-label">Contraseña</label>
+                </div>
+                
+                <button type="submit" class="btn-login">Entrar</button>
+                
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </main>
+
+    <!-- El mismo footer de la tienda -->
+    <footer>
+        <p>© 2025 Mi Tienda. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- El archivo JS que contiene toda la lógica de admin (Asegúrate de que la ruta sea correcta) -->
+    <script src="script/login.js"></script>
+</body>
+</html>
